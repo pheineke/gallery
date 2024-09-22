@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% block title %}Medien-Galerie{% endblock %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
+{% endblock %}
+
+<body>
+    {% block content %}
+    <div class="gallery-container">
+        {% for file in media_files %}
+            <div class="gallery-item">
+                {% if file.endswith('.mp4') or file.endswith('.webm') %}
+                    <video src="media/p/{{ file }}" alt="{{ file }}"></video>
+                    <div class="icon-overlay">
+                        <img src="/static/icons/video-icon.png" alt="Video Icon">
+                    </div>
+                {% else %}
+                    <img src="media/p/{{ file }}" alt="{{ file }}">
+                    <div class="icon-overlay">
+                        <img src="/static/icons/image-icon.png" alt="Image Icon">
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    
+
+    <div class="preview-overlay"></div>
+    <div class="preview">
+        <img id="previewImage" alt="Preview">
+        <video id="previewVideo" controls></video>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/gallery/render_galleryitems.js') }}"></script>
+    {% endblock %}
+</body>

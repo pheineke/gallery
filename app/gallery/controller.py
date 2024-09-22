@@ -1,11 +1,15 @@
 from flask import *
 import os
 
+from app.resources.wallpaper_downloader import WallpaperDownloader
+
 gallery_bp = Blueprint('gallery', __name__)
+
+downloader = WallpaperDownloader('https://wallhaven.cc/hot')
 
 
 # Define the folder that contains your media files
-MEDIA_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'media')
+MEDIA_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'media', 'wallpapers')
 
 # Route to serve the media files dynamically
 @gallery_bp.route('/')
@@ -21,3 +25,11 @@ def index():
 @gallery_bp.route('/media/<path:filename>')
 def media(filename):
     return send_from_directory(MEDIA_FOLDER, filename)
+
+@gallery_bp.route('/download_wallpapers/<int:number>')
+def download_wallpapers(number: int):
+    try:
+        downloader.download_wallpapers(num_wallpapers=number)
+        return jsonify({"status": "ok", "message": "Wallpapers downloaded successfully!"}), 200
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500

@@ -30,7 +30,7 @@ def rename_files_in_directory(directory):
 
 if __name__ == '__main__':
     # Path to the folder containing files
-    directory_path = './static/media/'
+    directory_path = ''
     
     # Call the renaming function
     rename_files_in_directory(directory_path)

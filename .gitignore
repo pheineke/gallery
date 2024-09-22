@@ -1,9 +1,1 @@
-*.mp4
-*.png
-*.webm
-*.webp
-*.jpeg
-*.jpg
-*.gif
-!static/icons/*
-!static/js/*
+app/static/media/

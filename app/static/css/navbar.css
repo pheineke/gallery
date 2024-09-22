@@ -8,55 +8,75 @@ header {
     justify-content: center;
     align-items: center;
     padding: 10px 15px;
+    gap: 30px;
+
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
 
 .navbar-brand a {
     color: white;
     text-decoration: none;
     margin-left: 20px;
-    transition: color 0.3s;
-    display: flex; /* Ensure icons are treated as flex items */
-    align-items: center; /* Center icons vertically */
+    transition: color 0.3s, transform 0.2s; /* Smooth color and transform transition */
+    display: flex;
+    align-items: center;
 }
 
 .navbar-brand a:hover {
     color: #f0a500; /* Change to a different color on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
 }
 
 .navbar-brand img {
     width: 24px;
     height: auto;
     margin-right: 5px;
-    filter: invert(100%); /* Inverts black to white */
+    filter: invert(100%);
+    transition: filter 0.3s; /* Smooth filter transition */
 }
 
 .navbar-links {
     display: flex;
-    align-items: center; /* Center items vertically */
+    align-items: center;
 }
 
 .navbar-links a {
     color: white;
     text-decoration: none;
-    margin-left: 20px;
-    transition: color 0.3s;
-    display: flex; /* Ensure icons are treated as flex items */
-    align-items: center; /* Center icons vertically */
+    transition: color 0.3s, transform 0.2s; /* Smooth color and transform transition */
+    display: flex;
+    align-items: center;
 }
 
 .navbar-links a:hover {
     color: #f0a500; /* Change to a different color on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
 }
 
 .navbar-links img {
     width: 24px;
     height: auto;
     margin-right: 5px;
-    filter: invert(100%); /* Inverts black to white */
+    filter: invert(100%);
+    transition: filter 0.3s; /* Smooth filter transition */
 }
 
-/* Doesnt work */
 .navbar-links a:hover img {
     filter: invert(100%) sepia(0%) saturate(1000%) hue-rotate(60deg); /* Change to desired hover color */
 }
-/* TODO */
+
+.navbar-features a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s, transform 0.2s; /* Smooth color and transform transition */
+    display: flex;
+    align-items: center;
+}
+
+.navbar-features a:hover {
+    color: #f0a500; /* Change to a different color on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
+}

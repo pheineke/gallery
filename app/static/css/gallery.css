@@ -32,6 +32,10 @@ body {
     transform: scale(1.1);
 }
 
+.gallery-item:active {
+    transform: scale(0.95); /* Scale down slightly on click */
+}
+
 .gallery-item img, .gallery-item video {
     width: 100%;
     height: 100%;

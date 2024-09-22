@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/time.css') }}">
+    <script src="{{ url_for('static', filename='js/time.js') }}"></script>
+
     {% endblock %}
   </head>
   <body>
@@ -22,6 +25,12 @@
                     <img src="{{ url_for('static', filename='icons/gallery-icon.png') }}" alt="Gallery Icon">
                     Gallery
                 </a>
+            </div>
+            <div class="navbar-features">
+                <div class="view" id="datetime">
+                    <div id="date">--.--.---</div>
+                    <div id="time">--:--:--</div>
+                </div>
             </div>
         </nav>
     </header>

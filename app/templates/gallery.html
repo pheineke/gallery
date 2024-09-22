@@ -4,7 +4,8 @@
     {% block title %}Medien-Galerie{% endblock %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    {% endblock %}
 
 <body>
     {% block content %}
@@ -33,38 +34,44 @@
         <video id="previewVideo" controls></video>
     </div>
 
+    <div class="wallpaper-download">
+        <form action="#" onsubmit="download_wallpapers(this)">
+            <label for="quantity">Quantity (between 1 and 5):</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="5">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <script>
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const previewImage = document.getElementById('previewImage');
-        const previewVideo = document.getElementById('previewVideo');
-        const previewOverlay = document.querySelector('.preview-overlay');
-        const preview = document.querySelector('.preview');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                const video = item.querySelector('video');
-
-                previewImage.style.display = 'none';
-                previewVideo.style.display = 'none';
-
-                if (img) {
-                    previewImage.src = img.src;
-                    previewImage.style.display = 'block';
-                } else if (video) {
-                    previewVideo.src = video.src;
-                    previewVideo.style.display = 'block';
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            download_wallpapers(this);
+        });
+    
+        function download_wallpapers(theForm) {
+            var number = theForm.quantity.value;
+            console.log("Number: ", number);
+    
+            fetch(`/gallery/download_wallpapers/${number}`, {
+                method: 'GET',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-
-                preview.style.display = 'block';
-                previewOverlay.style.display = 'block';
+                return response.json(); // Parse the JSON response
+            })
+            .then(data => {
+                alert(data.message); // Show success/error message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("There was an error during the download.");
             });
-        });
-
-        previewOverlay.addEventListener('click', () => {
-            preview.style.display = 'none';
-            previewOverlay.style.display = 'none';
-        });
+        }
     </script>
+    
+
+    <script src="{{ url_for('static', filename='js/gallery/render_galleryitems.js') }}"></script>
     {% endblock %}
 </body>
