@@ -1,0 +1,62 @@
+header {
+    background-color: #333;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.navbar-brand a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s;
+    display: flex; /* Ensure icons are treated as flex items */
+    align-items: center; /* Center icons vertically */
+}
+
+.navbar-brand a:hover {
+    color: #f0a500; /* Change to a different color on hover */
+}
+
+.navbar-brand img {
+    width: 24px;
+    height: auto;
+    margin-right: 5px;
+    filter: invert(100%); /* Inverts black to white */
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s;
+    display: flex; /* Ensure icons are treated as flex items */
+    align-items: center; /* Center icons vertically */
+}
+
+.navbar-links a:hover {
+    color: #f0a500; /* Change to a different color on hover */
+}
+
+.navbar-links img {
+    width: 24px;
+    height: auto;
+    margin-right: 5px;
+    filter: invert(100%); /* Inverts black to white */
+}
+
+/* Doesnt work */
+.navbar-links a:hover img {
+    filter: invert(100%) sepia(0%) saturate(1000%) hue-rotate(60deg); /* Change to desired hover color */
+}
+/* TODO */

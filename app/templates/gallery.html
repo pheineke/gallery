@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% block title %}Medien-Galerie{% endblock %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
+{% endblock %}
+
+<body>
+    {% block content %}
+    <div class="gallery-container">
+        {% for file in media_files %}
+            <div class="gallery-item">
+                {% if file.endswith('.mp4') or file.endswith('.webm') %}
+                    <video src="/gallery/media/{{ file }}" alt="{{ file }}"></video>
+                    <div class="icon-overlay">
+                        <img src="/static/icons/video-icon.png" alt="Video Icon">
+                    </div>
+                {% else %}
+                    <img src="/gallery/media/{{ file }}" alt="{{ file }}">
+                    <div class="icon-overlay">
+                        <img src="/static/icons/image-icon.png" alt="Image Icon">
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    
+
+    <div class="preview-overlay"></div>
+    <div class="preview">
+        <img id="previewImage" alt="Preview">
+        <video id="previewVideo" controls></video>
+    </div>
+
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const previewImage = document.getElementById('previewImage');
+        const previewVideo = document.getElementById('previewVideo');
+        const previewOverlay = document.querySelector('.preview-overlay');
+        const preview = document.querySelector('.preview');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const video = item.querySelector('video');
+
+                previewImage.style.display = 'none';
+                previewVideo.style.display = 'none';
+
+                if (img) {
+                    previewImage.src = img.src;
+                    previewImage.style.display = 'block';
+                } else if (video) {
+                    previewVideo.src = video.src;
+                    previewVideo.style.display = 'block';
+                }
+
+                preview.style.display = 'block';
+                previewOverlay.style.display = 'block';
+            });
+        });
+
+        previewOverlay.addEventListener('click', () => {
+            preview.style.display = 'none';
+            previewOverlay.style.display = 'none';
+        });
+    </script>
+    {% endblock %}
+</body>

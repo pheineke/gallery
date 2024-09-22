@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="{{ url_for('home.index') }}" alt="Home">
+                    <img src="{{ url_for('static', filename='icons/home-icon.png') }}" alt="Home Icon">
+                    Home</a>
+            </div>
+            <div class="navbar-links">
+                <a href="{{ url_for('gallery.index') }}" alt="Gallery">
+                    <img src="{{ url_for('static', filename='icons/gallery-icon.png') }}" alt="Gallery Icon">
+                    Gallery
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+
+    <div id="content">{% block content %}{% endblock %}</div>
+
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>
