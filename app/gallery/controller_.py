@@ -7,7 +7,7 @@ gallery__bp = Blueprint('gallery_', __name__)
 
 # Define the folder that contains your media files
 #MEDIA_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'media', 'p')
-MEDIA_FOLDER = '/run/media/dreamer/111D11EB2FA37324/NewFolder/'
+MEDIA_FOLDER = '/DATA/Downloads/jdownloader2'
 cache_timeout = 3600  # Cache timeout in seconds
 
 def get_media_files():
