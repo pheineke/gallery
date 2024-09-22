@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 
 class WallpaperDownloader:
-    def __init__(self, url='https://wallhaven.cc/hot', save_folder='app/static/wallpapers'):
+    def __init__(self, url='https://wallhaven.cc/hot', save_folder='app/static/media/wallpapers'):
         self.url = url
         self.save_folder = save_folder
         os.makedirs(self.save_folder, exist_ok=True)

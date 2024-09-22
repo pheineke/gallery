@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-    {% block title %}Medien-Galerie{% endblock %}
+    <title>{% block title %}Medien-Galerie{% endblock %}</title>
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
 {% endblock %}

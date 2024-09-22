@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-    {% block title %}Medien-Galerie{% endblock %}
     {{ super() }}
+    <title>{% block title %}Medien-Galerie{% endblock %}</title>
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
-    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/download_status.css') }}">
+{% endblock %}
 
 <body>
     {% block content %}
@@ -35,40 +37,57 @@
     </div>
 
     <div class="wallpaper-download">
-        <form action="#" onsubmit="download_wallpapers(this)">
+        <form id="myForm" action="#"> <!-- Achte auf den Slash -->
             <label for="quantity">Quantity (between 1 and 5):</label>
-            <input type="number" id="quantity" name="quantity" min="1" max="5">
+            <input type="number" id="quantity" name="quantity" min="1" max="5" required>
             <button type="submit">Submit</button>
         </form>
     </div>
+    
+    <div id="download-status" class="hidden">
+        ✔️
+    </div>
+    
     <script>
         document.getElementById('myForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
-    
-            download_wallpapers(this);
-        });
-    
-        function download_wallpapers(theForm) {
-            var number = theForm.quantity.value;
-            console.log("Number: ", number);
-    
-            fetch(`/gallery/download_wallpapers/${number}`, {
-                method: 'GET',
+
+            const quantity = document.getElementById('quantity').value;
+
+            fetch('/gallery/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    quantity: quantity
+                })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // Parse the JSON response
-            })
+            .then(response => response.json())
             .then(data => {
-                alert(data.message); // Show success/error message
+                localStorage.setItem("downloaded", "true"); // Set the flag
+                location.reload(); // Reload the page
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("There was an error during the download.");
-            });
-        }
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if the download status is indicated in local storage
+            if (localStorage.getItem("downloaded")) {
+                const status = document.getElementById("download-status");
+                status.classList.remove("hidden");
+                status.style.opacity = 1; // Show the checkmark
+
+                // Remove the status after a few seconds
+                setTimeout(() => {
+                    status.style.opacity = 0; // Fade out
+                    setTimeout(() => {
+                        status.classList.add("hidden"); // Hide it completely
+                    }, 500); // Match this timeout with the CSS transition duration
+                    localStorage.removeItem("downloaded"); // Set the flag
+                }, 2000); // Show for 2 seconds
+            }
+        });
     </script>
     
 

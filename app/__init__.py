@@ -8,6 +8,8 @@ def create_app():
         TEMPLATE_AUTO_RELOAD = True
     )
 
+    app.secret_key = 'your_secret_key'
+
     from app.home.controller import home_bp
     app.register_blueprint(home_bp, url_prefix='/')
 

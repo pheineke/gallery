@@ -1,0 +1,23 @@
+#download-status {
+    filter: invert(100%);
+    font-size: 50px; /* Adjust size as needed */
+    color: rgb(196, 29, 182); /* Green color */
+    text-align: center; /* Center the checkmark */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease; /* Smooth transition for appearance */
+    animation: glow 1s infinite alternate; /* Glowing effect */
+    
+}
+
+.hidden {
+    display: none; /* Use this to hide the element initially */
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px rgb(211, 18, 218), 0 0 10px rgba(145, 15, 196, 0.39), 0 0 15px rgb(218, 49, 195);
+    }
+    100% {
+        text-shadow: 0 0 10px rgb(222, 144, 238), 0 0 20px rgb(222, 144, 238), 0 0 30px rgb(238, 144, 225);
+    }
+}
