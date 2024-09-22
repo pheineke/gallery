@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  flask_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /DATA/Downloads/jdownloader2:/DATA/Downloads/jdownloader2
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=wsgi.py
+    command: sh -c "while true; do /usr/local/bin/check_updates.sh; sleep 900; done & flask run --host=0.0.0.0 --port=5000"
+
