@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   flask_app:
+    container_name: website_local
     build:
       context: .
       dockerfile: Dockerfile
