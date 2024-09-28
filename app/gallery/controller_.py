@@ -7,7 +7,7 @@ gallery__bp = Blueprint('gallery_', __name__)
 
 # Define the folder that contains your media files
 #MEDIA_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'media', 'p')
-MEDIA_FOLDER = '/DATA/Media/Youtube/Hello'
+MEDIA_FOLDER = '/DATA/gallery_'
 cache_timeout = 3600  # Cache timeout in seconds
 
 def get_media_files():
