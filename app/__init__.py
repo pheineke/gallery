@@ -13,6 +13,9 @@ def create_app():
     from app.home.controller import home_bp
     app.register_blueprint(home_bp, url_prefix='/')
 
+    from app.scripts.controller import scripts_bp
+    app.register_blueprint(scripts_bp, url_prefix='/scripts')
+
     from app.gallery.controller import gallery_bp
     app.register_blueprint(gallery_bp, url_prefix='/gallery')
 

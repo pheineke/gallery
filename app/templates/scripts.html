@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>{% block title %}Home{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scripts.css') }}">
+
+
+    {{ super() }}
+{% endblock %}
+</head>
+<body>
+    
+    {% block content %}
+
+    <div class="container">
+    
+        <form class="start-pc" action="/scripts/start-pc" method="POST">
+            <button type="submit">Magic Packet</button>
+        </form>
+
+        {{ logs }}
+
+    </div>
+
+    {% endblock %}
+</body>
+</html>

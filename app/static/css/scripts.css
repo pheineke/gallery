@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    flex-direction: column;
+    gap: 20px;
+}
+
+.start-pc {
+    display: inline;
+}
+
+button {
+    width: 200px;
+    height: 50px;
+}

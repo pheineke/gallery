@@ -2,11 +2,50 @@
 
 {% block head %}
     <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/radioplayer.css') }}">
+
     {{ super() }}
 {% endblock %}
 </head>
 <body>
     {% block content %}
+
+    <div class="container">
+        <div class="quota">
+
+            <iframe src="https://quota.wohnheim.uni-kl.de"></iframe>
+
+        </div>
+        <div class="container-radios">
+
+            <div class="player-card">
+                <div class="player-header">
+                    <img src="{{ url_for('static', filename='icons/dlf-icon.png') }}" alt="Radio Logo" class="radio-logo">
+                    <h2>DLF</h2>
+                </div>
+                <audio controls>
+                    <source src="https://st01.sslstream.dlf.de/dlf/01/128/mp3/stream.mp3?aggregator=web" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        
+    
+            <div class="player-card">
+                <div class="player-header">
+                    <img src="{{ url_for('static', filename='icons/njoy-icon.png') }}" alt="Radio Logo" class="radio-logo">
+                    <h2>NJOY</h2>
+                </div>
+                <audio controls>
+                    <source src="https://icecast.ndr.de/ndr/njoy/live/mp3/128/stream.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+        </div>
+        
+    </div>
     {% endblock %}
 </body>
 </html>
+
+
