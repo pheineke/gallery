@@ -1,0 +1,10 @@
+.quota {
+    border: 0;
+    filter: invert(1);
+}
+
+#quota {
+    width: 350px;
+    height: 450px;
+    border-radius: 15px;
+}
