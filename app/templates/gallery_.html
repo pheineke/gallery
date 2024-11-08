@@ -18,12 +18,12 @@
                     </a>
                 {% else %}
                     {% if item.name.endswith('.mp4') or item.name.endswith('.webm') %}
-                        <video src="media/p/{{ folder_path }}/{{ item.name }}" alt="{{ item.name }}"></video>
+                        <video src="media/p{{ folder_path }}/{{ item.name }}" alt="{{ item.name }}"></video>
                         <div class="icon-overlay">
                             <img src="/static/icons/video-icon.png" alt="Video Icon">
                         </div>
                     {% else %}
-                        <img src="media/p/{{ folder_path }}/{{ item.name }}" alt="{{ item.name }}">
+                        <img src="media/p{{ folder_path }}/{{ item.name }}" alt="{{ item.name }}">
                         <div class="icon-overlay">
                             <img src="/static/icons/image-icon.png" alt="Image Icon">
                         </div>
