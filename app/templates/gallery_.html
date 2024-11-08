@@ -10,12 +10,11 @@
     {% block content %}
     <div class="gallery-container">
         {% for item in media_items %}
-            <div class="gallery-item">
+            <div class="gallery-item {% if item.is_folder %}is-folder{% endif %}">
                 {% if item.is_folder %}
-                    <!-- Display folder icon and name, link to the folder path -->
                     <a href="{{ url_for('gallery_.index', folder_path=folder_path + '/' + item.name) }}">
                         <img src="/static/icons/folder-icon.png" alt="Folder Icon">
-                        <div class="icon-overlay">{{ item.name }}</div>
+                        <div class="icon-overlay" style="border-radius: 20px">{{ item.name }}</div>
                     </a>
                 {% else %}
                     {% if item.name.endswith('.mp4') or item.name.endswith('.webm') %}
@@ -33,6 +32,7 @@
             </div>
         {% endfor %}
     </div>
+    
     
     
 
