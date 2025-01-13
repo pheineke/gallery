@@ -6,24 +6,9 @@ gallery__bp = Blueprint('gallery_', __name__)
 
 
 # Define the folder that contains your media files
-#MEDIA_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'media','p')
+#MEDIA_FOLDER = os.path.join(os.getcwd(), 'app', 'static', 'media', 'p')
 MEDIA_FOLDER = '/DATA/gallery_'
 cache_timeout = 3600  # Cache timeout in seconds
-
-def get_media_items(path=""):
-    full_path = os.path.join(MEDIA_FOLDER, path)
-    items = []
-    for item in os.listdir(full_path):
-        item_path = os.path.join(full_path, item)
-        if os.path.isdir(item_path):  # Check if it's a directory
-            items.append({"name": item, "is_folder": True})
-        elif item.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.mp4', '.webm')):
-            items.append({"name": item, "is_folder": False})
-
-    print(items)
-    session['media_items'] = items
-    session['timestamp'] = time.time()
-    return items
 
 def get_media_files():
     if 'media_files' in session and time.time() - session['timestamp'] < cache_timeout:
@@ -40,11 +25,32 @@ def get_media_files():
 
 # Route to serve the media files dynamically
 @gallery__bp.route('/')
-@gallery__bp.route('/p/<path:folder_path>')
-def index(folder_path=""):
-    media_items = get_media_items(folder_path)
-    return render_template('gallery_.html', media_items=media_items, folder_path=folder_path)
+def index():
+    # Get query parameters for pagination
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', default=20, type=int)
 
-@gallery__bp.route('/media/p/<path:filepath>')
-def media(filepath):
-    return send_from_directory(MEDIA_FOLDER, filepath)
+    media_files = get_media_files()
+
+    # Calculate start and end indices for the current page
+    start = (page - 1) * per_page
+    end = start + per_page
+
+    # Get the media files for the current page
+    paginated_media = media_files[start:end]
+
+    # Determine if there are more pages
+    total_pages = (len(media_files) + per_page - 1) // per_page
+
+    return render_template(
+        'gallery_.html',
+        media_files=paginated_media,
+        page=page,
+        total_pages=total_pages,
+        per_page=per_page
+    )
+
+# Serve media files dynamically
+@gallery__bp.route('/media/p/<path:filename>')
+def media(filename):
+    return send_from_directory(MEDIA_FOLDER, filename)
