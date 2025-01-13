@@ -1,46 +1,60 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <title>{% block title %}Medien-Galerie{% endblock %}</title>
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
+<title>{% block title %}Medien-Galerie{% endblock %}</title>
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
 {% endblock %}
 
 <body>
     {% block content %}
     <div class="gallery-container">
-        {% for item in media_items %}
-            <div class="gallery-item {% if item.is_folder %}is-folder{% endif %}">
-                {% if item.is_folder %}
-                    <a href="{{ url_for('gallery_.index', folder_path=folder_path + item.name) }}">
-                        <img src="/static/icons/folder-icon.png" alt="Folder Icon">
-                        <div class="icon-overlay" style="border-radius: 20px">{{ item.name }}</div>
-                    </a>
-                {% else %}
-                    {% if item.name.endswith('.mp4') or item.name.endswith('.webm') %}
-                        <video src="media/p{{ folder_path }}/{{ item.name }}" alt="{{ item.name }}"></video>
-                        <div class="icon-overlay">
-                            <img src="/static/icons/video-icon.png" alt="Video Icon">
-                        </div>
-                    {% else %}
-                        <img src="media/p{{ folder_path }}/{{ item.name }}" alt="{{ item.name }}">
-                        <div class="icon-overlay">
-                            <img src="/static/icons/image-icon.png" alt="Image Icon">
-                        </div>
-                    {% endif %}
-                {% endif %}
+        {% for file in media_files %}
+        <div class="gallery-item">
+            {% if file.endswith('.mp4') or file.endswith('.webm') %}
+            <video src="{{ url_for('gallery_.media', filename=file) }}" alt="{{ file }}"></video>
+            <div class="icon-overlay">
+                <img src="/static/icons/video-icon.png" alt="Video Icon">
             </div>
+            {% else %}
+            <img src="{{ url_for('gallery_.media', filename=file) }}" alt="{{ file }}">
+            <div class="icon-overlay">
+                <img src="/static/icons/image-icon.png" alt="Image Icon">
+            </div>
+            {% endif %}
+        </div>
         {% endfor %}
     </div>
-    
-    
-    
 
     <div class="preview-overlay"></div>
     <div class="preview">
         <img id="previewImage" alt="Preview">
         <video id="previewVideo" controls></video>
     </div>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="{{ url_for('gallery_.index', page=page-1, per_page=per_page) }}" class="pagination-btn">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page }} of {{ total_pages }}</span>
+
+        {% if page < total_pages %} <a href="{{ url_for('gallery_.index', page=page+1, per_page=per_page) }}"
+            class="pagination-btn">Next</a>
+            {% endif %}
+    </div>
+
+    <form method="get" action="{{ url_for('gallery_.index') }}" class="items-per-page-form">
+        <label for="per_page">Items per page:</label>
+        <select id="per_page" name="per_page" onchange="this.form.submit()">
+            <option value="10" {% if per_page==10 %}selected{% endif %}>10</option>
+            <option value="20" {% if per_page==20 %}selected{% endif %}>20</option>
+            <option value="50" {% if per_page==50 %}selected{% endif %}>50</option>
+            <option value="50" {% if per_page==50 %}selected{% endif %}>100</option>
+            <option value="50" {% if per_page==50 %}selected{% endif %}>200</option>
+        </select>
+        <input type="hidden" name="page" value="1">
+    </form>
 
     <script src="{{ url_for('static', filename='js/gallery/render_galleryitems.js') }}"></script>
     {% endblock %}
